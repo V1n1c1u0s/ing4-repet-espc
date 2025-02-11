@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema de Repetição Espaçada</title>
+  <link rel="preload" href="./style.css" as="style">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <h1>Estudo de Repetição Espaçada</h1>
+
+  <div id="areaDecks">
+    <h3>Escolha um Deck</h3>
+    <button id="novoDeckBtn">Criar Novo Deck</button>
+    <div id="deckList"></div>
+  </div>
+  
+  <button id="adicionarCartaoBtn">Adicionar Cartão</button>
+  <button id="verRevisaoBtn">Ver Cartões para Revisão</button>
+
+  <div id="formularioAdicionarCartao" style="display: none;">
+    <h3>Adicionar Novo Cartão</h3>
+    <label for="pergunta">Pergunta:</label>
+    <input type="text" id="pergunta" placeholder="Digite a pergunta" required>
+    <br>
+    <label for="resposta">Resposta:</label>
+    <input type="text" id="resposta" placeholder="Digite a resposta" required>
+    <br>
+    <button id="salvarCartaoBtn">Salvar Cartão</button>
+    <button id="cancelarCartaoBtn">Cancelar</button>
+  </div>
+
+  <div id="cartaoContainer"></div>
+
+  <div id="respostaContainer" style="display:none;">
+    <h3>Digite sua resposta:</h3>
+    <input type="text" id="respostaUsuario" placeholder="Digite a resposta" />
+    <br>
+    <div id="resultadoRevisao"></div>
+  
+    <div>
+      <h4>Qual o grau de dificuldade?</h4>
+      <label>
+        <input type="radio" name="avaliacao" value="5" /> 5 - Lembrei perfeitamente
+      </label>
+      <label>
+        <input type="radio" name="avaliacao" value="4" /> 4 - Quase lembrei
+      </label>
+      <label>
+        <input type="radio" name="avaliacao" value="3" /> 3 - Lembrei, mas com dificuldade
+      </label>
+      <label>
+        <input type="radio" name="avaliacao" value="2" /> 2 - Não lembro direito
+      </label>
+      <label>
+        <input type="radio" name="avaliacao" value="1" /> 1 - Não lembro nada
+      </label>
+    </div>
+  
+    <button id="avaliarBtn">Avaliar</button>
+    <button id="proximoBtn" style="display: none;">Próximo</button>
+    <button id="removerBtn" style="display: none;">Remover</button>
+  </div>
+
+  <script type="module" src="./script.js"></script>
+</body>
+</html>
