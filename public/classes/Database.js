@@ -1,14 +1,16 @@
 const mysql = require('mysql2');
 const crypto = require('crypto');
+require('dotenv').config();
 
 //usar dotenv
 class Database {
     constructor() {
         this.db = mysql.createConnection({
-            host: 'localhost',
-            user: 'root',
-            password: '1234',
-            database: 'mydb',
+            host: process.env.DB_HOST,
+            user: process.env.DB_USER,
+            password: process.env.DB_PASSWORD,
+            database: process.env.DB_NAME,
+            port: process.env.DB_PORT
         });
 
         this.db.connect((err) => {

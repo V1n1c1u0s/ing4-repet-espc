@@ -117,7 +117,7 @@ salvarCartaoBtn.addEventListener("click", () => {
         return;
     }
 
-    deckSelecionado.adicionarCartao(pergunta, resposta);
+    deckSelecionado.adicionarCartao(pergunta, resposta, deckSelecionado.id);
 
     perguntaInput.value = "";
     respostaInput.value = "";
@@ -189,3 +189,5 @@ removerBtn.addEventListener("click", () => {
       resultadoRevisao.innerHTML = "";
     }
   });
+
+exibirDecks();
