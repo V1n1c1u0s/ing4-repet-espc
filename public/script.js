@@ -32,11 +32,29 @@ function exibirDecks() {
     }
 
     decks.forEach(deck => {
+        const deckDiv = document.createElement("div");
+        
         const deckBtn = document.createElement("button");
         deckBtn.textContent = deck.getNome();
         deckBtn.onclick = () => selecionarDeck(deck);
-        deckList.appendChild(deckBtn);
+
+        const removerDeckBtn = document.createElement("button");
+        removerDeckBtn.textContent = "Remover";
+        removerDeckBtn.onclick = () => removerDeck(deck.getNome());
+
+        deckDiv.appendChild(deckBtn);
+        deckDiv.appendChild(removerDeckBtn);
+        
+        deckList.appendChild(deckDiv);
     });
+}
+
+function removerDeck(nome) {
+    const confirmarRemocao = confirm("Você tem certeza de que deseja remover este deck?");
+    if (confirmarRemocao) {
+        deckManager.removerDeck(nome);
+        exibirDecks();
+    }
 }
 
 function selecionarDeck(deck) {

@@ -37,4 +37,12 @@ export class DeckManager {
     getDecks() {
         return this.decks;
     }
+
+    removerDeck(nome) {
+        const indiceDeck = this.decks.findIndex(deck => deck.getNome() === nome);
+        if (indiceDeck !== -1) {
+            this.decks.splice(indiceDeck, 1);
+            this.salvarDecks();
+        }
+    }
 }
