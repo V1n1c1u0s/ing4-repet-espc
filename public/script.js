@@ -91,7 +91,8 @@ novoDeckBtn.addEventListener("click", () => {
 });
 
 // Mostrar os decks ao carregar a página
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", ()=>{
+    //deckManager.criarDeck("testando");
     exibirDecks();
 });
 
@@ -118,6 +119,7 @@ salvarCartaoBtn.addEventListener("click", () => {
     }
 
     deckSelecionado.adicionarCartao(pergunta, resposta, deckSelecionado.id);
+    //console.log(deckSelecionado.id);
 
     perguntaInput.value = "";
     respostaInput.value = "";
@@ -160,7 +162,7 @@ avaliarBtn.addEventListener("click", () => {
     }
 
     // Atualizar a revisão do cartão com a avaliação
-    deckSelecionado.avaliarCartao(indiceCartaoAtual, respostaUsuario, avaliacao);
+    deckSelecionado.avaliarCartao(deckSelecionado.id,indiceCartaoAtual, respostaUsuario, avaliacao);
 
     avaliarBtn.style.display = "none";
     proximoBtn.style.display = "inline-block";
@@ -181,13 +183,11 @@ proximoBtn.addEventListener("click", () => {
 removerBtn.addEventListener("click", () => {
     deckSelecionado.removerCartao(indiceCartaoAtual);
 
-    if (indiceCartaoAtual < deck.cartoes.length) {
-      exibirCartaoParaRevisao();
+    if (indiceCartaoAtual < deckSelecionado.cartoes.length) {
+      exibirCartoesDoDeck();
     } else {
       cartaoContainer.innerHTML = "<p>Não há mais cartões para revisão.</p>";
       respostaContainer.style.display = "none";
       resultadoRevisao.innerHTML = "";
     }
   });
-
-exibirDecks();

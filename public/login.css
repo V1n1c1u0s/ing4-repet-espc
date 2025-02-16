@@ -1,0 +1,141 @@
+body {
+    /*background-color: #1e1e1e;*/
+    background: rgb(0,0,0);
+    background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgb(72, 2, 88) 80%);
+    font-family: Arial, sans-serif;
+    color: white;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+    /*background-size: 400% 400%;
+    /animation: gradient-animation 10s ease infinite;*/
+}
+
+@keyframes gradient-animation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Estilos para o container principal */
+.login-container {
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(138, 43, 226, 0.8), 0 0 40px rgba(138, 43, 226, 0.6);
+    width: 100%;
+    max-width: 350px; /* Define o tamanho máximo da caixa */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centraliza o conteúdo horizontalmente */
+    border: 2px solid #8a2be2; /* Borda roxa neon */
+}
+
+.cadastro-container {
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(138, 43, 226, 0.8), 0 0 40px rgba(138, 43, 226, 0.6);
+    width: 100%;
+    max-width: 350px; /* Define o tamanho máximo da caixa */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centraliza o conteúdo horizontalmente */
+    border: 2px solid #8a2be2; /* Borda roxa neon */
+}
+
+h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    /*color: #8a2be2;*/
+    color: white;
+    /*text-shadow: 0 0 2px #8a2be2, 0 0 5px #8a2be2, 0 0 15px #8a2be2;*/
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #8a2be2;
+    border-radius: 5px;
+    background-color: #2e2e2e;
+    color: white;
+    font-size: 16px;
+    box-sizing: border-box; /* Garante que o padding não quebre o layout */
+}
+
+input:focus {
+    outline: none;
+    border-color: #8a2be2;
+    box-shadow: 0 0 5px rgba(138, 43, 226, 0.8);
+}
+
+input::placeholder {
+    /*color: #8a2be2; /* Cor do texto dentro do campo */
+    color: white;
+    opacity: 0.3;
+}
+
+/* Estilos para o botão */
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #8a2be2;
+    color: white;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-shadow: 0 0 5px #8a2be2, 0 0 10px #8a2be2, 0 0 20px #8a2be2;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background-color: #7a2ae2;
+    box-shadow: 0 0 15px rgba(138, 43, 226, 0.8);
+}
+
+/* Estilo para o link de cadastro */
+p {
+    margin-top: 20px;
+    font-size: 14px;
+    text-align: center;
+    color: white;
+}
+
+a {
+    color: #8a2be2;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+a:hover {
+    color: #d1a2f1;
+}
+
+/*.message {
+    color: red;
+    margin-top: 10px;
+}*/
+
+.message {
+    color: white; /* Set text color to white for contrast */
+    background-color: rgba(138, 43, 226, 0.8); /* Add a purple background */
+    padding: 10px; /* Add padding for spacing */
+    border-radius: 5px; /* Round the corners */
+    border: 2px solid #8a2be2; /* Purple border */
+    box-shadow: 0 0 5px rgba(138, 43, 226, 0.8); /* Add a subtle shadow */
+    font-size: 16px; /* Adjust font size */
+    margin-top: 10px; /* Space from other elements */
+    text-align: center; /* Center the message */
+}

@@ -35,16 +35,28 @@ export class DeckManager {
         }
     }
     
-
+   
     async carregarDecks() {
-        const response = await fetch('http://localhost:3001/api/decks');
+        const response = await fetch('http://localhost:3001/api/decks', {
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
         const decksData = await response.json();
 
+        if(!response.ok){
+            console.log(decksData);
+            console.log("Erro ao ler");
+            return;
+        }
+            
         // Preenche os decks com os dados do banco
         this.decks = await Promise.all(decksData.map(async (deckData) => {
             const deck = new Deck(deckData.nome);
             deck.id = deckData.id;
-            await deck.carregarCartoes();
+            await deck.carregarCartoes(deck.id);
+            //await deck.carregarCartoes(deck.id);
             return deck;
         }));
     }

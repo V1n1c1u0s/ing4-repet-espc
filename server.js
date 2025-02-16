@@ -6,6 +6,9 @@ const path = require('path');
 const app = express();
 const port = 3000;
 
+const Deck = require('./Model/Deck');
+const Flashcard = require('./Model/Flashcard');
+
 // Middleware para parsear os dados do corpo das requisições
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -43,7 +46,8 @@ app.post('/login', (req, res) => {
         return res.redirect('/');
     }
 
-    res.send('Usuário ou senha incorretos');
+    //res.send('Usuário ou senha incorretos');
+    res.status(401).json({ error: 'Usuário ou senha incorretos' });
 });
 
 app.get('/cadastro', (req, res) => {
@@ -58,11 +62,13 @@ app.post('/cadastro', (req, res) => {
 
     const userExists = users.some(u => u.username === username);
     if (userExists) {
-        return res.send('Usuário já existe. Escolha outro nome de usuário.');
+        //return res.send('Usuário já existe. Escolha outro nome de usuário.');
+        res.status(401).json({ error: 'Usuário já existe. Escolha outro nome de usuário.' });
     }
 
     users.push({ username, password });
-    res.send('Cadastro realizado com sucesso. <a href="/login">Clique aqui para fazer login</a>');
+    //res.send('Cadastro realizado com sucesso. <a href="/login">Clique aqui para fazer login</a>');
+    res.send('Cadastro realizado com sucesso.');
 });
 
 // Rota de logout (GET)
@@ -73,6 +79,20 @@ app.get('/logout', (req, res) => {
         }
         res.redirect('/login');
     });
+});
+
+app.get('/decks', async (req, res) => {
+    if (!req.session.user) {
+        return res.redirect('/login');
+    }
+    try {
+        const decks = await Deck.findAll({
+          include: Flashcard, // Incluir os flashcards relacionados
+        });
+        res.json(decks);
+      } catch (error) {
+        res.status(500).send('Erro ao listar decks');
+      }
 });
 
 // Middleware para servir arquivos estáticos da pasta 'public'

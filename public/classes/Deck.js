@@ -4,7 +4,7 @@ export class Deck {
     constructor(nome) {
         this.nome = nome;
         this.cartoes = [];
-        this.carregarCartoes();
+        //this.carregarCartoes();
     }
 
     async adicionarCartao(pergunta, resposta, deckNome) {
@@ -71,9 +71,9 @@ export class Deck {
     }
 
     // Salvar os cartões no banco de dados após alterações
-    async salvarCartoes() {
+    async salvarCartoes(deckId) {
         for (let cartao of this.cartoes) {
-            await fetch(`http://localhost:3001/api/cartoes/${cartao.id}`, {
+            await fetch(`http://localhost:3001/api/cartoes/${deckId}/${cartao.id}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -88,10 +88,14 @@ export class Deck {
         }
     }
 
-    async carregarCartoes() {
+    async carregarCartoes(deckId) {
         try {
-            const response = await fetch(`http://localhost:3001/api/cartoes/${this.nome}`);
-    
+            //const response = await fetch(`http://localhost:3001/api/cartoes/${this.nome}`);
+            const response = await fetch(`http://localhost:3001/api/cartoes/${deckId}/`, {
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json' }
+            });
+
             // Verifica se a resposta foi bem-sucedida
             if (!response.ok) {
                 throw new Error(`Erro ao carregar cartões do deck: ${response.statusText}`);
@@ -121,7 +125,7 @@ export class Deck {
         return cartoesParaRevisao;
     }
 
-    avaliarCartao(cartaoIndex, respostaUsuario, avaliacao) {
+    avaliarCartao(deckId, cartaoIndex, respostaUsuario, avaliacao) {
         if (cartaoIndex < 0 || cartaoIndex >= this.cartoes.length) {
             console.error("Índice de cartão inválido.");
             return;
@@ -141,7 +145,7 @@ export class Deck {
         }
 
         cartao.atualizarRevisao(avaliacao);
-        this.salvarCartoes();
+        this.salvarCartoes(deckId);
     }
 
     getNome() {
