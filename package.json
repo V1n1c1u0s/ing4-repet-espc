@@ -5,7 +5,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "ap": "node api-server.js"
+    "ap": "node api-server.js",
+    "st": "concurrently \"node server3.js\" \"node api-server.js\""
   },
   "keywords": [],
   "author": "",
@@ -13,6 +14,7 @@
   "description": "",
   "dependencies": {
     "body-parser": "^1.20.3",
+    "concurrently": "^9.1.2",
     "cors": "^2.8.5",
     "crypto": "^1.0.1",
     "dotenv": "^16.4.7",

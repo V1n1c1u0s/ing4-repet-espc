@@ -81,6 +81,22 @@ app.get('/logout', (req, res) => {
     });
 });
 
+/*app.get('/*.html', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', '404.html'));
+});
+/*
+app.get('/*.js', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', '404.html'));
+});
+
+app.get('/*.css', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', '404.html'));
+});*/
+/*app.get(/^.*\.(html|js|css)$/, (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', '404.html'));
+});*/
+
+
 app.get('/decks', async (req, res) => {
     if (!req.session.user) {
         return res.redirect('/login');

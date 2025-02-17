@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Decks com Ações</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="mySty.css">
+</head>
+<body>
+    <div class="deck-container">
+        <h2>Decks</h2>
+
+        <button id="criar" onclick="criarDeck()">Criar Deck</button>
+
+        <div id="vaicriar" style="display: none;">
+            <h3>Criar Novo Deck</h3>
+            <form id="criarDeckForm">
+                <input type="text" id="nomeDeck" placeholder="Nome do Deck" required>
+                <button type="submit">Criar</button>
+                <button type="button" onclick="cancelarCriacao()">Cancelar</button>
+            </form>
+        </div>
+
+        <div id="vaieditar" style="display: none;">
+            <h3>Criar Novo Deck</h3>
+            <form id="editarDeckForm">
+                <input type="text" id="nmeDeck" placeholder="Nome do Deck" required>
+                <button type="submit">Editar</button>
+                <button type="button" onclick="cancelarEdicao()">Cancelar</button>
+            </form>
+        </div>
+
+        <div id="overlay" style="display: none;"></div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody id="decksTable"></tbody>
+        </table>
+    </div>
+
+    <script src="myScrip.js">
+    </script>
+</body>
+</html>

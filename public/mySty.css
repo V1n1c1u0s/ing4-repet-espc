@@ -1,0 +1,184 @@
+body {
+    background: rgb(0, 0, 0);
+    background: linear-gradient(90deg, rgba(0, 0, 0, 1) 0%, rgb(72, 2, 88) 80%);
+    font-family: Arial, sans-serif;
+    color: white;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+}
+
+.deck-container {
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(138, 43, 226, 0.8), 0 0 40px rgba(138, 43, 226, 0.6);
+    width: 100%;
+    max-width: 350px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid #8a2be2;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-top: 20px;
+    border-radius: 8px;
+    border: 2px solid #8a2be2;
+}
+
+tbody {
+    border-radius: 8px;
+}
+
+td {
+    padding: 10px;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-top: 1px solid transparent;
+    border-bottom: 1px solid transparent;
+    border-left: 1px solid transparent; 
+    border-right: 1px solid transparent;
+}
+
+th {
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 8px;
+    color: white;
+    text-align: center;
+}
+
+tr:first-child td {
+    border-top: none;
+}
+
+tr:last-child td {
+    border-radius: 8px;
+}
+
+a {
+    color: #8a2be2;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+a:hover {
+    color: #d1a2f1;
+    text-decoration: underline;
+}
+
+button {
+    padding: 5px 10px;
+    margin: 2px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+#criar {
+    width: 100%;
+    padding: 10px;
+    background-color: #8a2be2;
+    color: white;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-shadow: 0 0 5px #8a2be2, 0 0 10px #8a2be2, 0 0 20px #8a2be2;
+    transition: all 0.3s ease;
+}
+
+#criar:hover {
+    background-color: #7a2ae2;
+    box-shadow: 0 0 15px rgba(138, 43, 226, 0.8);
+}
+
+.edit-btn {
+    background-color: #f0ad4e;
+    color: white;
+    border: none;
+}
+
+.delete-btn {
+    background-color: #d9534f;
+    color: white;
+    border: none;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    display: block;
+}
+
+#vaicriar, #vaieditar {
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(138, 43, 226, 0.8), 0 0 40px rgba(138, 43, 226, 0.6);
+    width: 100%;
+    max-width: 350px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid #8a2be2;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2000;
+}
+
+#vaicriar input, #vaicriar button, #vaieditar input, #vaieditar button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+#vaicriar input, #vaieditar input {
+    background-color: rgba(138, 43, 226, 0.2);
+    color: white;
+    border: 2px solid #8a2be2;
+}
+
+#vaicriar input:focus, #vaieditar input:focus {
+    background-color: rgba(138, 43, 226, 0.25);
+    outline: none;
+    border: 2px solid #8a2be2;
+    box-shadow: 0 0 10px rgba(138, 43, 226, 1);
+}
+
+#vaicriar button[type="submit"], #vaieditar button[type="submit"] {
+    background-color: #8a2be2;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+#vaicriar button[type="button"], #vaieditar button[type="button"] {
+    background-color: #d9534f;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+#vaicriar button:hover, #vaieditar button:hover {
+    opacity: 0.8;
+}
