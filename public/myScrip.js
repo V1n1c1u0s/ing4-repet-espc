@@ -224,4 +224,28 @@ function fecharMenu() {
     document.getElementById("menuIcon").style.display = "block";
 }
 
+async function executarPrompt() {
+    const prompt = document.getElementById('prompt').value;
+
+    try {
+        const response = await fetch('http://localhost:3001/api/prompt', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ prompt }),
+        })
+        const responseText = await response.text();
+        const regex = /\{.*\}/s;  // O modificador 's' permite capturar novas linhas
+        const match = responseText.match(regex);
+        const myJson = match[0]; 
+        JSON.parse(myJson);
+        console.log(responseText);
+        console.log(myJson)
+    } catch (error) {
+        console.error('Erro ao executar o prompt:', error);
+    }
+    loadDecks();
+}
+
 window.onload = loadDecks;
