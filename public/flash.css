@@ -38,3 +38,71 @@ button {
 button:hover {
     opacity: 0.8;
 }
+
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    display: block;
+}
+
+#vaicriarCard, #vaieditarCard {
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(138, 43, 226, 0.8), 0 0 40px rgba(138, 43, 226, 0.6);
+    width: 100%;
+    max-width: 350px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid #8a2be2;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2000;
+}
+
+#vaicriarCard input, #vaicriarCard button, #vaieditarCard input, #vaieditarCard button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+#vaicriarCard input, #vaieditarCard input {
+    background-color: rgba(138, 43, 226, 0.2);
+    color: white;
+    border: 2px solid #8a2be2;
+}
+
+#vaicriarCard input:focus, #vaieditarCard input:focus {
+    background-color: rgba(138, 43, 226, 0.25);
+    outline: none;
+    border: 2px solid #8a2be2;
+    box-shadow: 0 0 10px rgba(138, 43, 226, 1);
+}
+
+#vaicriarCard button[type="submit"], #vaieditarCard button[type="submit"] {
+    background-color: #8a2be2;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+#vaicriarCard button[type="button"], #vaieditarCard button[type="button"] {
+    background-color: #d9534f;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+#vaicriarCard button:hover, #vaieditarCard button:hover {
+    opacity: 0.8;
+}

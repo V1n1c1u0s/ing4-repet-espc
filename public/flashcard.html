@@ -7,8 +7,30 @@
     <link rel="stylesheet" href="../flash.css">
 </head>
 <body>
-    <div id="deckContainer">
+    <div id="deckContainer"></div>
+
+    <div id="vaicriarCard" style="display: none;">
+        <h3>Criar Novo Card</h3>
+        <label for="perguntaCard">Pergunta:</label>
+        <input type="text" id="perguntaCard">
+        <label for="respostaCard">Resposta:</label>
+        <input type="text" id="respostaCard">
+        <button onclick="salvarNovoCard()">Salvar</button>
+        <button onclick="cancelarCriacaoCard()">Cancelar</button>
     </div>
+
+    <div id="vaieditarCard" style="display: none;">
+        <h3>Editar Card</h3>
+        <label for="perguntaEdit">Pergunta:</label>
+        <input type="text" id="perguntaEdit">
+        <label for="respostaEdit">Resposta:</label>
+        <input type="text" id="respostaEdit">
+        <button>Salvar Edição</button>
+        <button onclick="cancelarEdicaoCard()">Cancelar</button>
+    </div>
+
+    <div id="overlay" style="display: none;"></div>
+
     <script src="../flash.js"></script>
 </body>
 </html>
