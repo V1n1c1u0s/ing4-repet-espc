@@ -27,7 +27,7 @@ app.get('/', (req, res) => {
     if (!req.session.user) {
         return res.redirect('/login');
     }
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+    res.sendFile(path.join(__dirname, 'public', 'meusDecks.html'));
 });
 
 app.get('/login', (req, res) => {
@@ -111,7 +111,7 @@ app.get('/decks', async (req, res) => {
       }
 });
 
-app.get('/decks/:id', async (req, res) => {
+/*app.get('/decks/:id', async (req, res) => {
     if (!req.session.user) {
         return res.redirect('/login');
     }
@@ -127,6 +127,13 @@ app.get('/decks/:id', async (req, res) => {
     } catch (error) {
         res.status(500).send('Erro ao buscar o deck');
     }
+});*/
+
+app.get('/decks/:id', async (req, res) => {
+    if (!req.session.user) {
+        return res.redirect('/login');
+    }
+    res.sendFile(path.join(__dirname, 'public', 'flashcard.html'));
 });
 
 // Middleware para servir arquivos estáticos da pasta 'public'

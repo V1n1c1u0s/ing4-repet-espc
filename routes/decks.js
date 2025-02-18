@@ -16,6 +16,23 @@ router.get('/', async (req, res) => {
   }
 });
 
+router.get('/:deckId', async (req, res) => {
+  const { deckId } = req.params;
+  try {
+    // Encontra o deck pelo ID
+    const deck = await Deck.findByPk(deckId, {
+      include: Flashcard, // Incluir os flashcards relacionados
+    });
+    if (!deck) {
+      return res.status(404).send('Deck não encontrado');
+    }
+    res.status(200).json(deck);
+  } catch (error) {
+    console.error('Erro ao mostrar deck:', error);
+    res.status(500).send('Erro ao mostrar deck');
+  }
+});
+
 // Criar um novo deck
 router.post('/', async (req, res) => {
   const { nome } = req.body;
