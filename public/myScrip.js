@@ -236,16 +236,60 @@ async function executarPrompt() {
             body: JSON.stringify({ prompt }),
         })
         const responseText = await response.text();
-        const regex = /\{.*\}/s;  // O modificador 's' permite capturar novas linhas
+        const regex = /\{.*\}/s;  // modificador 's' permite capturar novas linhas
         const match = responseText.match(regex);
-        const myJson = match[0]; 
-        JSON.parse(myJson);
-        console.log(responseText);
+        let myJson = match[0]; 
+        myJson = JSON.parse(myJson);
         console.log(myJson)
+        await criarDeckComFlashcards(myJson);
     } catch (error) {
         console.error('Erro ao executar o prompt:', error);
     }
     loadDecks();
+}
+
+
+async function criarDeckComFlashcards(json) {
+    const { deck_name, flashcards } = json;
+
+    const responseDeck = await fetch('http://localhost:3001/api/decks', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ nome: deck_name }),
+    });
+
+    if (!responseDeck.ok) {
+        throw new Error('Erro ao criar o deck');
+    }
+
+    const deckData = await responseDeck.json();
+    const deckId = deckData.id;
+
+    for (const flashcard of flashcards) {
+        const { pergunta, resposta } = flashcard;
+
+        const proximaRevisao = new Date(); // mudar isso dps
+
+        const responseCard = await fetch(`http://localhost:3001/api/cartoes/${deckId}/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                pergunta,
+                resposta,
+                proximaRevisao,
+            }),
+        });
+
+        if (!responseCard.ok) {
+            throw new Error(`Erro ao criar o flashcard: ${pergunta}`);
+        }
+    }
+
+    console.log('Deck e flashcards criados com sucesso!');
 }
 
 window.onload = loadDecks;
