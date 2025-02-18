@@ -182,3 +182,60 @@ button:hover {
 #vaicriar button:hover, #vaieditar button:hover {
     opacity: 0.8;
 }
+
+.menu-hamburguer {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 3000;
+}
+
+.menu-hamburguer i {
+    font-size: 30px;
+    color: #8a2be2;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.menu-hamburguer i:hover {
+    color: #d1a2f1;
+}
+
+.menu-lateral {
+    position: fixed;
+    top: 0;
+    right: -250px;
+    width: 250px;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    box-shadow: -2px 0 10px rgba(138, 43, 226, 0.8);
+    transition: right 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 60px;
+}
+
+.menu-lateral a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    padding: 15px;
+    width: 100%;
+    text-align: center;
+    transition: 0.3s;
+}
+
+.menu-lateral a:hover {
+    background: #8a2be2;
+    color: white;
+}
+
+.menu-lateral .fechar-menu {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 25px;
+    color: #8a2be2;
+    cursor: pointer;
+}

@@ -8,6 +8,15 @@
     <link rel="stylesheet" href="mySty.css">
 </head>
 <body>
+    <div class="menu-hamburguer" id="menuIcon" onclick="abrirMenu()">
+        <i class="fas fa-bars"></i>
+    </div>
+
+    <div class="menu-lateral" id="menuLateral">
+        <span class="fechar-menu" id="fecharMenu" onclick="fecharMenu()">&times;</span>
+        <a href="/logout">Sair</a>
+    </div>
+
     <div class="deck-container">
         <h2>Decks</h2>
 
@@ -23,7 +32,7 @@
         </div>
 
         <div id="vaieditar" style="display: none;">
-            <h3>Criar Novo Deck</h3>
+            <h3>Editar Deck</h3>
             <form id="editarDeckForm">
                 <input type="text" id="nmeDeck" placeholder="Nome do Deck" required>
                 <button type="submit">Editar</button>

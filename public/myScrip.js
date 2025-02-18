@@ -126,7 +126,7 @@ document.getElementById('criarDeckForm').addEventListener('submit', async functi
 async function editDeck(id) {
     try {
         // Faz uma requisição para obter os dados do deck a ser editado
-        const response = await fetch(`/decks/${id}`);
+        const response = await fetch(`http://localhost:3001/api/decks/${id}`);
         const deck = await response.json();
 
         // Exibe a área de criação e o overlay para bloquear o restante da página
@@ -212,6 +212,16 @@ async function deleteDeck(id) {
             alert('Erro ao tentar deletar o deck');
         }
     }
+}
+
+function abrirMenu() {
+    document.getElementById("menuLateral").style.right = "0px";
+    document.getElementById("menuIcon").style.display = "none";
+}
+
+function fecharMenu() {
+    document.getElementById("menuLateral").style.right = "-250px";
+    document.getElementById("menuIcon").style.display = "block";
 }
 
 window.onload = loadDecks;
