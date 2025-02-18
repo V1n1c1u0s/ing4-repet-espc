@@ -220,7 +220,7 @@ function abrirMenu() {
 }
 
 function fecharMenu() {
-    document.getElementById("menuLateral").style.right = "-250px";
+    document.getElementById("menuLateral").style.right = "-350px";
     document.getElementById("menuIcon").style.display = "block";
 }
 

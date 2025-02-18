@@ -14,7 +14,12 @@
 
     <div class="menu-lateral" id="menuLateral">
         <span class="fechar-menu" id="fecharMenu" onclick="fecharMenu()">&times;</span>
-        <a href="/logout">Sair</a>
+        <div class="ai-container">
+            <h3>Assistente I.A.</h3>
+            <input type="text" id="prompt" placeholder="Digite seu prompt...">
+            <button onclick="executarPrompt()">Executar</button>
+            <button onclick="window.location.href='/logout'">Sair</button>
+        </div>
     </div>
 
     <div class="deck-container">
