@@ -23,6 +23,7 @@ const jwt = require('jsonwebtoken');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const { Domain } = require("domain");
+const argon2 = require('argon2');
 
 const app = express();
 const port = 3001;
@@ -85,7 +86,12 @@ app.post('/register', async (req, res) => {
       return res.status(400).json({ message: 'Usuário já existe' });
   }
 
-  const hashedPassword = await bcrypt.hash(password, 10);
+  const hashedPassword = await argon2.hash(password, {
+            type: argon2.argon2id,  // Usa Argon2id (mais seguro)
+            memoryCost: 2 ** 16,    // Define 64MB de uso de memória (protege contra ataques de hardware)
+            timeCost: 3,            // Número de iterações
+            parallelism: 1          // Threads usadas
+        });
   await User.create({ username, password: hashedPassword });
   res.status(201).json({ message: 'Usuário registrado com sucesso' });
 });
@@ -94,7 +100,7 @@ app.post('/login', async (req, res) => {
   const { username, password } = req.body;
   const user = await User.findOne({ where: { username } });
 
-  if (!user || !(await bcrypt.compare(password, user.password))) {
+  if (!user || !(await argon2.verify(user.password, password))) {
       return res.status(400).json({ message: 'Credenciais inválidas' });
   }
 

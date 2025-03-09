@@ -6,7 +6,7 @@ function handleCadastro(event) {
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
 
-    fetch('http://localhost:3001/register', {
+    fetch('https://localhost:3001/register', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
