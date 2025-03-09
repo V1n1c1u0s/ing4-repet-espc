@@ -134,7 +134,7 @@ async function editDeck(id) {
     try {
         // Faz uma requisição para obter os dados do deck a ser editado
         const response = await fetch(`https://localhost:3001/api/decks/${id}`, {
-            method: 'POST',
+            method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
             },
