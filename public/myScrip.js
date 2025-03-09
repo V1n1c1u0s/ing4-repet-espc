@@ -1,6 +1,12 @@
 async function loadDecks() {
     try {
-        const response = await fetch('/decks');
+        const response = await fetch('https://localhost:3001/api/decks', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            credentials: 'include',
+        });
         const decks = await response.json();
 
         const tableBody = document.getElementById('decksTable');
@@ -90,12 +96,13 @@ document.getElementById('criarDeckForm').addEventListener('submit', async functi
     }
 
     try {
-        const response = await fetch('http://localhost:3001/api/decks', {
+        const response = await fetch('https://localhost:3001/api/decks', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({ nome }),
+            credentials: 'include',
         });
 
         if (!response.ok) {
@@ -126,7 +133,13 @@ document.getElementById('criarDeckForm').addEventListener('submit', async functi
 async function editDeck(id) {
     try {
         // Faz uma requisição para obter os dados do deck a ser editado
-        const response = await fetch(`http://localhost:3001/api/decks/${id}`);
+        const response = await fetch(`https://localhost:3001/api/decks/${id}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            credentials: 'include',
+        });
         const deck = await response.json();
 
         // Exibe a área de criação e o overlay para bloquear o restante da página
@@ -158,12 +171,13 @@ async function editDeck(id) {
 
             try {
                 // Faz uma requisição PUT para editar o deck
-                const response = await fetch(`http://localhost:3001/api/decks/${id}`, {
+                const response = await fetch(`https://localhost:3001/api/decks/${id}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({ nome }),
+                    credentials: 'include',
                 });
 
                 if (!response.ok) {
@@ -197,8 +211,9 @@ async function editDeck(id) {
 async function deleteDeck(id) {
     if (confirm('Você tem certeza que deseja deletar este deck?')) {
         try {
-            const response = await fetch(`http://localhost:3001/api/decks/${id}`, {
+            const response = await fetch(`https://localhost:3001/api/decks/${id}`, {
                 method: 'DELETE',
+                credentials: 'include',
             });
 
             if (response.ok) {
@@ -228,12 +243,13 @@ async function executarPrompt() {
     const prompt = document.getElementById('prompt').value;
 
     try {
-        const response = await fetch('http://localhost:3001/api/prompt', {
+        const response = await fetch('https://localhost:3001/api/prompt', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({ prompt }),
+            credentials: 'include',
         })
         const responseText = await response.text();
         const regex = /\{.*\}/s;  // modificador 's' permite capturar novas linhas
@@ -252,12 +268,13 @@ async function executarPrompt() {
 async function criarDeckComFlashcards(json) {
     const { deck_name, flashcards } = json;
 
-    const responseDeck = await fetch('http://localhost:3001/api/decks', {
+    const responseDeck = await fetch('https://localhost:3001/api/decks', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({ nome: deck_name }),
+        credentials: 'include',
     });
 
     if (!responseDeck.ok) {
@@ -272,7 +289,7 @@ async function criarDeckComFlashcards(json) {
 
         const proximaRevisao = new Date(); // mudar isso dps
 
-        const responseCard = await fetch(`http://localhost:3001/api/cartoes/${deckId}/`, {
+        const responseCard = await fetch(`https://localhost:3001/api/cartoes/${deckId}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -282,6 +299,7 @@ async function criarDeckComFlashcards(json) {
                 resposta,
                 proximaRevisao,
             }),
+            credentials: 'include',
         });
 
         if (!responseCard.ok) {

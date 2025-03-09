@@ -1,7 +1,10 @@
 async function loadCards() {
     const deckId = window.location.pathname.split('/')[2]; // Pega o ID do deck da URL
     try {
-        const response = await fetch(`http://localhost:3001/api/decks/${deckId}`);
+        const response = await fetch(`https://localhost:3001/api/decks/${deckId}`, {
+            method: "GET",
+            credentials: "include",
+        });
         const deckData = await response.json();
 
         const deckContainer = document.getElementById('deckContainer');
@@ -65,8 +68,9 @@ async function loadCards() {
             };
 
             removerBtn.onclick = async function() {
-                await fetch(`http://localhost:3001/api/cartoes/${flashcard.id}`, {
+                await fetch(`https://localhost:3001/api/cartoes/${flashcard.id}`, {
                     method: 'DELETE',
+                    credentials: 'include',
                 });
                 
                 currentFlashcardIndex++;
@@ -136,12 +140,13 @@ function mostrarEdicaoCard(flashcard) {
             return;
         }
     
-        const response = await fetch(`http://localhost:3001/api/cartoes/${deckId}/${flashcard.id}`, {
+        const response = await fetch(`https://localhost:3001/api/cartoes/${deckId}/${flashcard.id}`, {
             method: 'PUT',
             body: JSON.stringify({ pergunta, resposta }),
             headers: {
                 'Content-Type': 'application/json'
-            }
+            },
+            credentials: "include",
         });
     
         const updatedCard = await response.json();
@@ -174,12 +179,13 @@ async function salvarNovoCard() {
         return;
     }
 
-    const response = await fetch(`http://localhost:3001/api/cartoes/${deckId}/`, {
+    const response = await fetch(`https://localhost:3001/api/cartoes/${deckId}/`, {
         method: 'POST',
         body: JSON.stringify({ pergunta, resposta, proximaRevisao }),
         headers: {
             'Content-Type': 'application/json'
-        }
+        },
+        credentials: "include",
     });
 
     const newCard = await response.json();

@@ -3,3 +3,6 @@
 *.sql
 *tests
 *.env
+*.pem
+*.crt
+*.key

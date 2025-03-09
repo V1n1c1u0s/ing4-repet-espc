@@ -6,12 +6,13 @@ function handleLogin(event) {
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
 
-    fetch('/login', {
+    fetch('https://localhost:3001/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ username, password })
+        body: JSON.stringify({ username, password }),
+        credentials: 'include',
     })
     .then(response => {
         if (!response.ok) {
