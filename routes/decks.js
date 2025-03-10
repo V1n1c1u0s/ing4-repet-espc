@@ -3,6 +3,7 @@ const express = require('express');
 const Deck = require('../Model/Deck');
 const Flashcard = require('../Model/Flashcard');
 const router = express.Router();
+const { Op } = require('sequelize');
 
 // Listar meus decks
 router.get('/', async (req, res) => {
@@ -19,11 +20,16 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/:deckId', async (req, res) => {
+  const dataAtual = new Date();
   const { deckId } = req.params;
   try {
     // Encontra o deck pelo ID
     const deck = await Deck.findByPk(deckId, {
-      include: Flashcard, // Incluir os flashcards relacionados
+      include: {
+        model: Flashcard,
+        where: { proximaRevisao: { [Op.lte]: dataAtual } },
+        required: false, //Não exclui o deck caso não seja <= dataAtual
+      },
     });
     if (!deck) {
       return res.status(404).send('Deck não encontrado');

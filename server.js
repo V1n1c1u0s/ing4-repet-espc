@@ -72,6 +72,13 @@ app.get('/logout', async (req, res) => {
       return res.redirect('/login');
 });
 
+app.get('/decks/:id', async (req, res) => {
+    if (!req.cookies.token) {
+        return res.redirect('/login');
+    }
+    res.sendFile(path.join(__dirname, 'public', 'flashcard.html'));
+});
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use((req, res) => {
