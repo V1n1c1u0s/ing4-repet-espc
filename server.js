@@ -13,10 +13,16 @@ const port = 3000;
 
 const cookieParser = require('cookie-parser');
 
-const options = {
+/*const options = {
     key: fs.readFileSync('private-key.key'),
     cert: fs.readFileSync('certificate.crt'),
+};*/
+
+const options = {
+    key: fs.readFileSync('localhost-key.pem'),
+    cert: fs.readFileSync('localhost.pem')
 };
+
 
 https.createServer(options, app).listen(port, () => {
     console.log('Servidor HTTPS rodando em https://localhost:3001');
