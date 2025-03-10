@@ -4,10 +4,12 @@ const Deck = require('../Model/Deck');
 const Flashcard = require('../Model/Flashcard');
 const router = express.Router();
 
-// Listar todos os decks
+// Listar meus decks
 router.get('/', async (req, res) => {
   try {
+    const userId = req.user.userId;
     const decks = await Deck.findAll({
+      where: { userId },
       include: Flashcard, // Incluir os flashcards relacionados
     });
     res.json(decks);
@@ -37,7 +39,7 @@ router.get('/:deckId', async (req, res) => {
 router.post('/', async (req, res) => {
   const { nome } = req.body;
   try {
-    const novoDeck = await Deck.create({ nome });
+    const novoDeck = await Deck.create({ nome: nome, userId: req.user.userId });
     res.status(201).json(novoDeck);
   } catch (error) {
     res.status(500).send('Erro ao criar deck');

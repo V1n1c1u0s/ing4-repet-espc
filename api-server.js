@@ -104,7 +104,7 @@ app.post('/login', async (req, res) => {
       return res.status(400).json({ message: 'Credenciais inválidas' });
   }
 
-  const token = jwt.sign({ username }, 'secreta', { expiresIn: '1h' });
+  const token = jwt.sign({ userId: user.id, username: user.username }, 'secreta', { expiresIn: '1h' });
 
   res.cookie("token", token, {
     httpOnly: true,
