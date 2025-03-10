@@ -53,27 +53,14 @@ router.post('/:deckId', async (req, res) => {
 router.put('/:deckId/:flashcardId', async (req, res) => {
   const { deckId, flashcardId } = req.params; // Obtém os parâmetros de deckId e flashcardId
   const { pergunta, resposta, facilidade, intervalo, repeticoes, proximaRevisao } = req.body; // Obtém os dados do corpo da requisição
-
   try {
-    // Encontra o deck
     const deck = await Deck.findByPk(deckId);
-    if (!deck) {
-      return res.status(404).send('Deck não encontrado');
-    }
+    if (!deck) return res.status(404).send('Deck não encontrado');
 
-    // Encontra o flashcard associado ao deck
-    const flashcard = await Flashcard.findOne({
-      where: {
-        id: flashcardId,
-        deckId: deckId
-      }
-    });
+    const flashcard = await Flashcard.findOne({ where: { id: flashcardId, deckId: deckId } });
 
-    if (!flashcard) {
-      return res.status(404).send('Flashcard não encontrado');
-    }
+    if (!flashcard) return res.status(404).send('Flashcard não encontrado');
 
-    // Atualiza os campos do flashcard com os dados da requisição
     flashcard.pergunta = pergunta || flashcard.pergunta;
     flashcard.resposta = resposta || flashcard.resposta;
     flashcard.facilidade = facilidade || flashcard.facilidade;
@@ -81,10 +68,7 @@ router.put('/:deckId/:flashcardId', async (req, res) => {
     flashcard.repeticoes = repeticoes || flashcard.repeticoes;
     flashcard.proximaRevisao = proximaRevisao || flashcard.proximaRevisao;
 
-    // Salva as mudanças no banco de dados
     await flashcard.save();
-
-    // Retorna o flashcard atualizado
     res.status(200).json(flashcard);
   } catch (error) {
     res.status(500).send('Erro ao atualizar flashcard');
