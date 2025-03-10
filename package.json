@@ -4,9 +4,7 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
-    "ap": "node api-server.js",
-    "st": "concurrently \"node server3.js\" \"node api-server.js\""
+    "start": "concurrently \"nodemon server.js\" \"nodemon api-server.js\""
   },
   "keywords": [],
   "author": "",
@@ -25,6 +23,7 @@
     "express-session": "^1.18.1",
     "jsonwebtoken": "^9.0.2",
     "mysql2": "^3.12.0",
+    "nodemon": "^3.1.9",
     "openai": "^4.85.1",
     "sequelize": "^6.37.5"
   }

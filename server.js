@@ -1,3 +1,8 @@
+// Desabilitar verificação de certificados SSL (apenas para desenvolvimento)
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+
+const fs = require('fs');
+const https = require('https');
 const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser');
@@ -6,120 +11,69 @@ const path = require('path');
 const app = express();
 const port = 3000;
 
-const Deck = require('./Model/Deck');
-const Flashcard = require('./Model/Flashcard');
+const cookieParser = require('cookie-parser');
 
-// Middleware para parsear os dados do corpo das requisições
+const options = {
+    key: fs.readFileSync('private-key.key'),
+    cert: fs.readFileSync('certificate.crt'),
+};
+
+https.createServer(options, app).listen(port, () => {
+    console.log('Servidor HTTPS rodando em https://localhost:3001');
+});
+
+// Middleware - parseia os dados do corpo das requisições
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-// Middleware para configurar a sessão
-app.use(session({
-    secret: 'segredo',  //pra implementar
+// Middleware - configura sessão
+/*app.use(session({
+    secret: 'minha_chave_secreta',
     resave: false,
     saveUninitialized: true,
-}));
+    cookie: { 
+        httpOnly: true,
+        secure: true,    // Apenas se estiver usando HTTPS
+        sameSite: "None",
+        maxAge: 60 * 60 * 1000 // Expira em 1 hora
+    }
+}));*/
 
-// Usuários fictícios
-const users = [];
+app.use(cookieParser());
 
-app.get('/', (req, res) => {
-    if (!req.session.user) {
+app.get('/', async (req, res) => {
+    if (!req.cookies.token) {
         return res.redirect('/login');
     }
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+    res.sendFile(path.join(__dirname, 'public', 'meusDecks.html'));
 });
 
-app.get('/login', (req, res) => {
-    if (req.session.user) {
+app.get('/login', async (req, res) => {
+    if (req.cookies.token) {
         return res.redirect('/');
     }
+   
     res.sendFile(path.join(__dirname, 'public', 'login.html'));
 });
 
-app.post('/login', (req, res) => {
-    const { username, password } = req.body;
-
-    const user = users.find(u => u.username === username && u.password === password);
-    if (user) {
-        req.session.user = user;
-        return res.redirect('/');
-    }
-
-    //res.send('Usuário ou senha incorretos');
-    res.status(401).json({ error: 'Usuário ou senha incorretos' });
-});
-
 app.get('/cadastro', (req, res) => {
-    if (req.session.user) {
+    if (req.cookies.token) {
         return res.redirect('/');
     }
     res.sendFile(path.join(__dirname, 'public', 'cadastro.html'));
 });
 
-app.post('/cadastro', (req, res) => {
-    const { username, password } = req.body;
-
-    const userExists = users.some(u => u.username === username);
-    if (userExists) {
-        //return res.send('Usuário já existe. Escolha outro nome de usuário.');
-        res.status(401).json({ error: 'Usuário já existe. Escolha outro nome de usuário.' });
-    }
-
-    users.push({ username, password });
-    //res.send('Cadastro realizado com sucesso. <a href="/login">Clique aqui para fazer login</a>');
-    res.send('Cadastro realizado com sucesso.');
+app.get('/logout', async (req, res) => {
+    res.clearCookie("token", {
+        httpOnly: true,
+        secure: true,
+        sameSite: "None",
+      });
+      return res.redirect('/login');
 });
 
-// Rota de logout (GET)
-app.get('/logout', (req, res) => {
-    req.session.destroy((err) => {
-        if (err) {
-            return res.send('Erro ao deslogar.');
-        }
-        res.redirect('/login');
-    });
-});
-
-app.get('/decks', async (req, res) => {
-    if (!req.session.user) {
-        return res.redirect('/login');
-    }
-    try {
-        const decks = await Deck.findAll({
-          include: Flashcard, // Incluir os flashcards relacionados
-        });
-        res.json(decks);
-      } catch (error) {
-        res.status(500).send('Erro ao listar decks');
-      }
-});
-
-app.get('/decks/:id', async (req, res) => {
-    if (!req.session.user) {
-        return res.redirect('/login');
-    }
-    try {
-        const deck = await Deck.findByPk(req.params.id, {
-            include: Flashcard, // Incluir os flashcards relacionados
-        });
-        if (deck) {
-            res.json(deck); // Ou renderize uma página de detalhes com as informações do deck
-        } else {
-            res.status(404).send('Deck não encontrado');
-        }
-    } catch (error) {
-        res.status(500).send('Erro ao buscar o deck');
-    }
-});
-
-// Middleware para servir arquivos estáticos da pasta 'public'
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use((req, res) => {
   res.status(404).sendFile(path.join(__dirname, 'public', '404.html')); 
-});
-
-app.listen(port, () => {
-    console.log(`Servidor rodando em http://localhost:${port}`);
 });

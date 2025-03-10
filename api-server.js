@@ -87,7 +87,7 @@ app.post('/register', async (req, res) => {
   }
 
   const hashedPassword = await argon2.hash(password, {
-            type: argon2.argon2id,  // Usa Argon2id (mais seguro)
+            type: argon2.argon2id,
             memoryCost: 2 ** 16,    // Define 64MB de uso de memória (protege contra ataques de hardware)
             timeCost: 3,            // Número de iterações
             parallelism: 1          // Threads usadas
@@ -106,16 +106,12 @@ app.post('/login', async (req, res) => {
 
   const token = jwt.sign({ username }, 'secreta', { expiresIn: '1h' });
 
-  //req.session.token = token;
-  // Armazena o token no cookie HttpOnly
   res.cookie("token", token, {
-    httpOnly: true, // Protege contra XSS
-    secure: true, // Apenas HTTPS (false para desenvolvimento local)
-    sameSite: "None", // Proteção contra CSRF
+    httpOnly: true,
+    secure: true,
+    sameSite: "None",
     maxAge: 60 * 60 * 1000, // Expira em 1 hora
   });
-
-  //res.json({ token });
   res.json({ message: "Login bem-sucedido" });
 });
 
@@ -131,8 +127,6 @@ app.post("/logout", (req, res) => {
 });
 
 const authenticateToken = (req, res, next) => {
-  //const token = req.header('Authorization');
-  //const token = req.session.token;
   const token = req.cookies.token;
   if (!token) return res.status(401).json({ message: 'Acesso negado' });
 
